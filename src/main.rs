@@ -12,9 +12,16 @@ mod hot_lib {
     pub fn was_updated() -> bool {}
 }
 
+const ROWS: u32 = 22;
+const COLS: u32 = 12;
+const SIZE: u32 = 30;
+const MARGIN: u32 = 35;
+const WIDTH: u32 = COLS * SIZE + 2 * MARGIN;
+const HEIGHT: u32 = ROWS * SIZE + 2 * MARGIN;
+
 fn model(app: &nannou::App) -> Model {
     Model::for_window(
-        app.new_window().size(512, 512).view(view).event(event).build().unwrap())
+        app.new_window().size(WIDTH, HEIGHT).view(view).event(event).build().unwrap())
 }
 
 pub fn update(app: &App, model: &mut Model, update: Update) {
