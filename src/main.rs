@@ -1,37 +1,30 @@
-use nannou::{prelude::*};
+use nannou::*;
+use hot_lib::*;
+
+#[hot_lib_reloader::hot_module(dylib = "lib", file_watch_debounce = 50)]
+mod hot_lib {
+    pub use lib::*;
+    pub use nannou::prelude::*;
+
+    hot_functions_from_file!("lib/src/lib.rs");
+
+    #[lib_updated]
+    pub fn was_updated() -> bool {}
+}
+
+fn model(app: &nannou::App) -> Model {
+    Model::for_window(
+        app.new_window().view(view).event(event).build().unwrap())
+}
+
+pub fn update(app: &App, model: &mut Model, update: Update) {
+    model.was_updated = hot_lib::was_updated();
+        hot_lib::update(app, model, update)
+}
 
 fn main() {
-    nannou::sketch(view_without_model).run();
     nannou::app(model)
         .update(update)
         .simple_window(view)
-
         .run()
-}
-
-struct Model {
-    color: Srgb<u8>,
-}
-
-fn model(_app: &App) -> Model {
-    Model { color: RED }
-}
-
-fn update(_app: &App, _model: &mut Model, _update: Update) {
-}
-
-fn view(_app: &App, _model: &Model, frame: Frame){
-    let draw = _app.draw();
-
-    draw.background().color(_model.color);
-    draw.to_frame(_app, &frame).unwrap();
-
-}
-
-fn view_without_model(_app: &App, frame: Frame){
-    let draw = _app.draw();
-
-    draw.background().color(BLUE);
-    draw.to_frame(_app, &frame).unwrap();
-
 }

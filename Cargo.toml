@@ -1,7 +1,19 @@
+[workspace]
+resolver = "2"
+members = ["lib"]
+
 [package]
 name = "art-nannou"
 version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+hot-lib-reloader = "^0.6"
 nannou = "0.17"
+lib = { path = "lib" }
+
+[profile.dev]
+opt-level = 1
+
+[profile.dev.package.nannou]
+opt-level = 3

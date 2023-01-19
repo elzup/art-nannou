@@ -1,0 +1,5 @@
+commands:
+  bin: |
+    cargo watch -i lib -q -x fmt -x "run"
+  lib: |
+    cargo watch -w lib -q -x "build -p lib"
