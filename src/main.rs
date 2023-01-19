@@ -25,6 +25,5 @@ pub fn update(app: &App, model: &mut Model, update: Update) {
 fn main() {
     nannou::app(model)
         .update(update)
-        .simple_window(view)
         .run()
 }

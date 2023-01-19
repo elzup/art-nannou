@@ -27,11 +27,21 @@ pub struct State {}
 pub fn event(_app: &App, _model: &mut Model, _event: WindowEvent) {}
 
 #[no_mangle]
-pub fn update(_app: &App, _model: &mut Model, _update: Update) {}
+pub fn update(_app: &App, model: &mut Model, _update: Update) {
+}
 
 #[no_mangle]
 pub fn view(app: &App, _model: &Model, frame: Frame) {
     let draw = app.draw();
-    draw.background().color(WHITE);
+
+    draw.background().color(BLUE);
+    draw.ellipse().color(STEELBLUE);
+
+    draw.rect()
+        .x_y(0.0, 0.0)
+        .w_h(100.0, 100.0)
+        .z_degrees(45.0)
+        .color(PLUM);
+
     draw.to_frame(app, &frame).unwrap();
 }
