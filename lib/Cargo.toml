@@ -8,5 +8,4 @@ crate-type = ["rlib", "dylib"]
 
 [dependencies]
 itertools = "0.10.3"
-# nannou = { package = "nannou_dynamic", path = "../nannou_dynamic" }
-nannou = "0.17"
+nannou = { package = "nannou_dynamic", path = "../nannou_dynamic" }

@@ -14,7 +14,7 @@ mod hot_lib {
 
 fn model(app: &nannou::App) -> Model {
     Model::for_window(
-        app.new_window().view(view).event(event).build().unwrap())
+        app.new_window().size(512, 512).view(view).event(event).build().unwrap())
 }
 
 pub fn update(app: &App, model: &mut Model, update: Update) {

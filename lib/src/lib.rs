@@ -15,7 +15,7 @@ impl Model {
             window,
             state: State::default(),
             was_updated: false,
-            color: GREEN,
+            color: RED,
         }
     }
 }
@@ -27,21 +27,28 @@ pub struct State {}
 pub fn event(_app: &App, _model: &mut Model, _event: WindowEvent) {}
 
 #[no_mangle]
-pub fn update(_app: &App, model: &mut Model, _update: Update) {
-}
+pub fn update(_app: &App, model: &mut Model, _update: Update) {}
 
 #[no_mangle]
 pub fn view(app: &App, _model: &Model, frame: Frame) {
     let draw = app.draw();
 
-    draw.background().color(BLUE);
-    draw.ellipse().color(STEELBLUE);
+    // Generate sine wave data based on the time of the app
+    let sine = app.time.sin();
+    let slowersine = (app.time / 2.0).sin();
 
-    draw.rect()
-        .x_y(0.0, 0.0)
-        .w_h(100.0, 100.0)
-        .z_degrees(45.0)
-        .color(PLUM);
+    // Get boundary of the window (to constrain the movements of our circle)
+    let boundary = app.window_rect();
+
+    // Map the sine wave functions to ranges between the boundaries of the window
+    let x = map_range(sine, -1.0, 1.0, boundary.left(), boundary.right());
+    let y = map_range(slowersine, -1.0, 1.0, boundary.bottom(), boundary.top());
+
+    // Clear the background to purple.
+    draw.background().color(PURPLE);
+
+    // Draw a blue ellipse at the x/y coordinates 0.0, 0.0
+    draw.ellipse().color(STEELBLUE).x_y(x, y);
 
     draw.to_frame(app, &frame).unwrap();
 }

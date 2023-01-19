@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
-members = ["lib"]
+members = ["lib", "nannou_dynamic"]
 
 [package]
 name = "art-nannou"
@@ -9,11 +9,14 @@ edition = "2021"
 
 [dependencies]
 hot-lib-reloader = "^0.6"
-nannou = "0.17"
 lib = { path = "lib" }
+nannou = { package = "nannou_dynamic", path = "./nannou_dynamic" }
 
 [profile.dev]
 opt-level = 1
 
 [profile.dev.package.nannou]
+opt-level = 3
+
+[profile.dev.package.nannou_dynamic]
 opt-level = 3
